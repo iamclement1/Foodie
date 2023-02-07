@@ -3,8 +3,18 @@ import Avatar from '../assets/img/avatar.png';
 import { BsCart3 } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { app } from '../firebase.config';
 
 const Navbar = () => {
+
+    const firebaseAuth = getAuth(app);
+    const provider = new GoogleAuthProvider();
+
+    const Login = async () => {
+        const response = await signInWithPopup(firebaseAuth, provider)
+        console.log(response);
+    };
     return (
         <header className='fixed z-50 w-screen p-6 px-16 ' >
             {/* desktop & tablet */}
@@ -46,8 +56,11 @@ const Navbar = () => {
                     </div>
 
                     {/* avatarImage + framer motion to tapping */}
-                    <motion.img
-                        whileTap={{ scale: 0.6 }} src={Avatar} alt="user__profile" className='w-10 min-w-[40px] h-10 min-h-[40x] drop-shadow-2xl cursor-pointer ' />
+                    <div className="relative">
+                        <motion.img
+                            whileTap={{ scale: 0.6 }} src={Avatar} alt="user__profile" className='w-10 min-w-[40px] h-10 min-h-[40x] drop-shadow-2xl cursor-pointer ' 
+                            onClick={Login}/>
+                    </div>
                 </div>
 
             </div>
