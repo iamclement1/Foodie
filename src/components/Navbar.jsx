@@ -5,15 +5,24 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { app } from '../firebase.config';
+import { useStateValue } from '../context/StateProvider';
+import { actionType } from "../context/reducer";
 
 const Navbar = () => {
 
     const firebaseAuth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
+    //dispatch providerData by using the useStateValue custome hook
+    const [ { user }, dispatch ] = useStateValue();
+
     const Login = async () => {
-        const response = await signInWithPopup(firebaseAuth, provider)
-        console.log(response);
+        const { user : { refreshToken, providerData} } = await signInWithPopup(firebaseAuth, provider)
+        //dispatch providerData
+        dispatch({
+            type: actionType.SET_USER,
+            user : providerData[0]
+        })
     };
     return (
         <header className='fixed z-50 w-screen p-6 px-16 ' >
