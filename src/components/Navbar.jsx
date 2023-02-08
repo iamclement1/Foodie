@@ -1,6 +1,6 @@
 import Logo from '../assets/img/logo.png';
 import Avatar from '../assets/img/avatar.png';
-import { BsCart3 } from 'react-icons/bs';
+import { IoMdCart } from 'react-icons/io';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
@@ -49,7 +49,7 @@ const Navbar = () => {
 
                     {/* cart icon */}
                     <div className="relative flex items-start justify-center">
-                        <BsCart3 className='text-textColor text-2xl cursor-pointer' />
+                        <IoMdCart className='text-textColor text-2xl cursor-pointer' />
                         <div className='absolute -top-2 -right-2  w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center'>
                             <p className="text-xs text-white font-semibold"> 2 </p>
                         </div>
