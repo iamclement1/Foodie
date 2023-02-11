@@ -94,7 +94,11 @@ const Navbar = () => {
 
                         {
                             isMenu && (
-                                <div className='flex flex-col w-40 bg-primary shadow-xl rounded-lg absolute
+                                <motion.div
+                                initial={{ opacity : 0, scale : 0.6 }}
+                                animate={{ opacity : 1, scale : 1 }}
+                                exit={{ opacity : 0, scale : 0.6 }}
+                                className='flex flex-col w-40 bg-primary shadow-xl rounded-lg absolute
                         top-12 right-0 '>
                                     {/* render this only if the user is an admin */}
                                     {
@@ -112,7 +116,7 @@ const Navbar = () => {
                                         onClick={Logout}>
                                         Logout <MdLogout />
                                     </p>
-                                </div>
+                                </motion.div>
                             )
                         }
                     </div>
