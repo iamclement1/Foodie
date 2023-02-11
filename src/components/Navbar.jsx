@@ -13,7 +13,7 @@ const Navbar = () => {
     const firebaseAuth = getAuth(app);
     const provider = new GoogleAuthProvider();
 
-    //dispatch providerData by using the useStateValue custome hook
+    //dispatch providerData by using the useStateValue custome hook I created in the context folder
     const [ { user }, dispatch ] = useStateValue();
 
     const Login = async () => {
@@ -22,7 +22,8 @@ const Navbar = () => {
         dispatch({
             type: actionType.SET_USER,
             user : providerData[0]
-        })
+        });
+        localStorage.setItem('user', JSON.stringify(providerData[0]));
     };
     return (
         <header className='fixed z-50 w-screen p-6 px-16 ' >
@@ -67,7 +68,10 @@ const Navbar = () => {
                     {/* avatarImage + framer motion to tapping */}
                     <div className="relative">
                         <motion.img
-                            whileTap={{ scale: 0.6 }} src={Avatar} alt="user__profile" className='w-10 min-w-[40px] h-10 min-h-[40x] drop-shadow-2xl cursor-pointer ' 
+                            whileTap={{ scale: 0.6 }} 
+                            src={ user ? user.photoURL : Avatar } //if user is signed in display user image.
+                            alt="user__profile" 
+                            className='w-10 min-w-[40px] h-10 min-h-[40x] drop-shadow-2xl cursor-pointer rounded-full' 
                             onClick={Login}/>
                     </div>
                 </div>
