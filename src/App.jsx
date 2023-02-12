@@ -10,7 +10,7 @@ function App() {
       <div className="App">
         <div className="w-screen h-auto flex flex-col bg-primary">
           <Navbar />
-          <main className='mt-24 p-8 w-full'>
+          <main className='mt-14 md:mt-20 px-4 md:px-16 py-8 w-full'>
             <Routing />
           </main>
         </div>
