@@ -131,6 +131,14 @@ const Navbar = () => {
 
             {/* mobile phone  */}
             <div className="flex items-center justify-between md:hidden w-full h-full p-5" >
+                {/* cart icon */}
+                <div className="relative flex items-start justify-center">
+                    <IoMdCart className='text-textColor text-2xl cursor-pointer' />
+                    <div className='absolute -top-2 -right-2  w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center'>
+                        <p className="text-xs text-white font-semibold"> 2 </p>
+                    </div>
+                </div>
+                {/* link image */}
                 <Link to={'/'} className="flex items-center gap-2">
                     <img src={Logo} alt="Logo" className='w-10 object-cover' />
                     <p className='text-headingColor text-xl font-bold'>
