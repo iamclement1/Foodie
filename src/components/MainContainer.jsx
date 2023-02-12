@@ -1,8 +1,10 @@
-import React from 'react'
+import HomeContainer from './index';
 
 const MainContainer = () => {
     return (
-        <div>MainContainer</div>
+        <div>
+            <HomeContainer />
+        </div>
     )
 }
 
