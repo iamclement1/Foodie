@@ -1,9 +1,13 @@
 import Bike from '../assets/img/delivery.png';
+import HeroBG from '../assets/img/heroBg.png';
+import { heroData } from '../utils/HeroData';
+
 
 
 const HomeContainer = () => {
+
     return (
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
+        <section className='grid grid-cols-1 md:grid-cols-2 gap-2 w-full h-screen' id='home'>
             <div className="py-2 flex-1 flex flex-col items-start justify-center gap-4">
                 <div className='flex items-center gap-2 justify-center bg-orange-100 px-4 py-1 rounded-full'>
                     <p className='text-base text-orange-500 font-semibold'>Bike Delivery</p>
@@ -29,8 +33,42 @@ const HomeContainer = () => {
                 </button>
 
             </div>
-            <div className="py-2 flex-1"></div>
-        </div>
+            <div className="py-2 flex-1 flex items-center relative">
+                {/* <div className='w-full flex items-center justify-center relative'></div> */}
+                <img src={HeroBG}
+                    className='ml-auto h-420 lg:h-600 w-full lg:w-auto' alt="hero_bg" />
+                <div className='w-full h-full absolute top-0 right-0 flex items-center justify-center
+                px-32 py-4 gap-2 flex-wrap'>
+                    {/* {
+                        heroData && heroData.map(n => (
+                            <div key={n.id} className='w-190 min-w-[190px] p-4 bg-cardOverlay backdrop-blur-md 
+                            rounded-3xl
+                    flex flex-col items-center justify-center'>
+                                <img src={n.img} alt="ice-cream"
+                                    className='w-40 -mt-20' />
+                                <p className='text-xl font-semibold text-textColor mt-4'>
+                                    {
+                                        n.name
+                                    }
+                                </p>
+                                <p className='text-sm text-lighttextGray font-semibold my-2'>
+                                    {
+                                        n.despcription
+                                    }
+                                </p>
+
+                                <p className='text-sm font-semibold text-headingColor'>
+                                    <span className='text-xs text-red-600'>$</span>
+                                    {
+                                        n.price
+                                    }
+                                </p>
+                            </div>
+                        ))
+                    } */}
+                </div>
+            </div>
+        </section>
     )
 }
 
