@@ -10,7 +10,7 @@ import {
 import { storage } from '../firebase.config';
 import { categoryData } from '../utils/CategoryData';
 import Loader from './Loader';
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 const CreateContainer = () => {
 
@@ -67,6 +67,20 @@ const CreateContainer = () => {
     //delete image
 
     const deleteImage = () => {
+        setIsLoading(true);
+        const deleteRef = ref(storage, imageAsset);
+        //using the deleteObject method from firebase storage
+        deleteObject(deleteRef).then(() => {
+            setImageAsset(null);
+            setIsLoading(false);
+            setFields(true);
+            setMsg('Image deleted Successfully 😊');
+            setAlertStatus('success');
+            setTimeout(() => {
+                setFields(false);
+
+            }, 4000);
+        })
     };
 
     //save details function
@@ -83,7 +97,7 @@ const CreateContainer = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             className={`w-full p-2 rounded-lg text-center text-lg font-semibold ${alertStatus === "danger" ? 'bg-red-400 text-red-800' : 'bg-emerald-400 text-emerald-800'}`}>
-                            { msg }
+                            {msg}
                         </motion.p>
                     )
                 }
@@ -199,8 +213,8 @@ const CreateContainer = () => {
                 <div className='flex items-center w-full  '>
                     <button type='button' className='ml-0 md:ml-auto w-full md:w-auto border-none
                     outline-none bg-emerald-400 hover:bg-emerald-800 px-12 py-2 rounded-lg text-lg text-white
-                    font-semibold' 
-                    onClick={ saveDetails }>
+                    font-semibold'
+                        onClick={saveDetails}>
                         Save
                     </button>
                 </div>
