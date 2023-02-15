@@ -11,6 +11,7 @@ import { storage } from '../firebase.config';
 import { categoryData } from '../utils/CategoryData';
 import Loader from './Loader';
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { saveItem } from '../utils/FirebaseFunctions';
 
 const CreateContainer = () => {
 
@@ -84,7 +85,58 @@ const CreateContainer = () => {
     };
 
     //save details function
-    const saveDetails = () => { };
+    const saveDetails = () => {
+        setIsLoading(true);
+        try {
+            if ((!title || !calories || !imageAsset || !price || !category)) {
+                setFields(true);
+                setMsg('Requied fields cannot be empty');
+                setAlertStatus("danger");
+                setTimeout(() => {
+                    setFields(false);
+                    setIsLoading(false);
+                }, 4000);
+            } else {
+                const data = {
+                    id : `${Date.now()}`,
+                    title: title,
+                    image : imageAsset,
+                    category: category,
+                    calories : calories,
+                    qty : 1,
+                    price : price,
+                }
+                saveItem(data);
+                setIsLoading(false);
+                setFields(true);
+                setMsg("Data Saved Successfully 😊");
+                clearData();
+                setAlertStatus("Success");
+                setTimeout(() => {
+                    setFields(false);
+                }, 4000)
+            }
+        } catch (error) {
+            console.log(error);
+            setFields(true);
+            setMsg('error');
+            setAlertStatus("");
+            setTimeout(() => {
+                setFields(false);
+                setIsLoading(false);
+            }, 4000);
+        }
+    };
+
+    //clear Data function
+    const clearData = () => {
+        setTitle("");
+        setImageAsset(null);
+        setCalories("");
+        setPrice("");
+        setCategory("Select Category");
+
+    }
 
     return (
         <div className='w-full min-h-screen flex items-center justify-center' >
