@@ -6,9 +6,11 @@ import {
     MdDelete,
     MdFoodBank,
     MdAttachMoney
-} from 'react-icons/md'
+} from 'react-icons/md';
+import { storage } from '../firebase.config';
 import { categoryData } from '../utils/CategoryData';
 import Loader from './Loader';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 
 const CreateContainer = () => {
 
@@ -26,8 +28,40 @@ const CreateContainer = () => {
     // const [{ foodItems }, dispatch] = useStateValue();
 
     // callback function
-    const uploadImage = () => {
+    const uploadImage = (e) => {
+        setIsLoading(true);
+        const imageFile = e.target.files[0];
+        // console.log(imageFile);
+        const storageRef = ref(storage, `Images/${Date.now()}-${imageFile.name}`)
+        const uploadTask = uploadBytesResumable(storageRef, imageFile); //uploadBytesResumable from firebase storage
 
+        //to calculate the size of the uploaded image
+        uploadTask.on('state_changed', (snapshot) => {
+            const uploadProgress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        }, (error) => {
+            console.log(error);
+            setFields(true);
+            // setMsg(error.message);
+            setMsg('Error uploading image : Try again 🙇');
+            setAlertStatus("danger");
+            //remove alert 
+            setTimeout(() => {
+                setFields(false);
+                setIsLoading(false);
+            }, 4000)
+        }, () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                setImageAsset(downloadURL);
+                setIsLoading(false);
+                setFields(true);
+                setMsg('Image Uploaded Successfully 😊');
+                setAlertStatus('success');
+                setTimeout(() => {
+                    setFields(false);
+
+                }, 4000);
+            });
+        });
     }
 
     //delete image
@@ -49,7 +83,7 @@ const CreateContainer = () => {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             className={`w-full p-2 rounded-lg text-center text-lg font-semibold ${alertStatus === "danger" ? 'bg-red-400 text-red-800' : 'bg-emerald-400 text-emerald-800'}`}>
-                            something wrong
+                            { msg }
                         </motion.p>
                     )
                 }
