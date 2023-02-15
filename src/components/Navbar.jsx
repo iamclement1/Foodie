@@ -89,12 +89,17 @@ const Navbar = () => {
 
                     {/* avatarImage + framer motion to tapping */}
                     <div className="relative">
-                        <motion.img
-                            whileTap={{ scale: 0.6 }}
-                            src={user ? user.photoURL : Avatar} //if user is signed in display user image.
-                            alt="user__profile"
-                            className='w-10 min-w-[40px] h-10 min-h-[40x] drop-shadow-2xl cursor-pointer rounded-full'
-                            onClick={Login} />
+                        <motion.div className='flex items-center space-x-5'>
+                            <motion.img
+                                whileTap={{ scale: 0.6 }}
+                                src={user ? user.photoURL : Avatar} //if user is signed in display user image.
+                                alt="user__profile"
+                                className='w-10 min-w-[40px] h-10 min-h-[40x] drop-shadow-2xl cursor-pointer rounded-full'
+                                onClick={Login} />
+                            <p>
+                                {user ? user.displayName : "Username"}
+                            </p>
+                        </motion.div>
 
                         {
                             isMenu && (

@@ -3,7 +3,6 @@ import HeroBG from '../assets/img/heroBg.png';
 import { heroData } from '../utils/HeroData';
 
 
-
 const HomeContainer = () => {
 
     return (
@@ -33,39 +32,34 @@ const HomeContainer = () => {
                 </button>
 
             </div>
-            <div className="py-2 flex-1 flex items-center relative">
-                {/* <div className='w-full flex items-center justify-center relative'></div> */}
+            <div className="py-2 flex-1 flex items-center relative w-full">
                 <img src={HeroBG}
-                    className='ml-auto h-420 lg:h-600 w-full lg:w-auto' alt="hero_bg" />
-                <div className='w-full h-full absolute top-0 right-0 flex items-center justify-center
-                px-32 py-4 gap-2 flex-wrap'>
-                    {/* {
-                        heroData && heroData.map(n => (
-                            <div key={n.id} className='w-190 min-w-[190px] p-4 bg-cardOverlay backdrop-blur-md 
-                            rounded-3xl
-                    flex flex-col items-center justify-center'>
-                                <img src={n.img} alt="ice-cream"
-                                    className='w-40 -mt-20' />
-                                <p className='text-xl font-semibold text-textColor mt-4'>
+                    className='ml-auto h-420 lg:h-650 w-full lg:w-auto' alt="hero_bg" />
+                <div className='w-full h-full absolute top-0 left-0 flex items-center justify-center 
+                lg:px-32  py-4 gap-4 flex-wrap'>
+                    {
+                        heroData && heroData.map((n) => (
+                            <div key={n.id} className="lg:w-190 min-w-[190px] p-4 bg-cardOverlay backdrop-blur-md 
+                            rounded-3xl flex flex-col items-center">
+                                <img src={n.img} alt="" className='w-20 lg:w-40 -mt-10 lg:-mt-20' />
+                                <p className='text-base font-semibold text-textColor'>
                                     {
                                         n.name
                                     }
                                 </p>
-                                <p className='text-sm text-lighttextGray font-semibold my-2'>
+                                <p className='text-[10px] lg:text-sm text-gray-400 font-semibold my-1'>
                                     {
                                         n.despcription
                                     }
                                 </p>
-
                                 <p className='text-sm font-semibold text-headingColor'>
-                                    <span className='text-xs text-red-600'>$</span>
-                                    {
+                                    <span className='text-xs text-red-600'>$</span> {
                                         n.price
                                     }
                                 </p>
                             </div>
                         ))
-                    } */}
+                    }
                 </div>
             </div>
         </section>
