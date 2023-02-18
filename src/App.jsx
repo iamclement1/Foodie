@@ -2,8 +2,25 @@ import './App.css'
 import { Navbar } from './components'
 import { AnimatePresence } from 'framer-motion'
 import Routing from './routes/Routing'
+import { useStateValue } from './context/StateProvider'
+import { getAllItems } from './utils/FirebaseFunctions'
+import { useEffect } from 'react'
 
 function App() {
+
+  const [ {}, dispatch ] = useStateValue();
+
+  const fetchData = async () => {
+    await getAllItems()
+    .then(data => {
+      console.log(data)
+    })
+  }
+
+
+  useEffect(() => {
+    fetchData();
+  }, [])
 
   return (
     <AnimatePresence exitBeforeEnter>
