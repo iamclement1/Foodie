@@ -5,15 +5,19 @@ import Routing from './routes/Routing'
 import { useStateValue } from './context/StateProvider'
 import { getAllItems } from './utils/FirebaseFunctions'
 import { useEffect } from 'react'
+import { actionType } from './context/reducer'
 
 function App() {
 
-  const [ {}, dispatch ] = useStateValue();
+  const [ {foodItems}, dispatch ] = useStateValue();
 
   const fetchData = async () => {
     await getAllItems()
     .then(data => {
-      console.log(data)
+      dispatch({
+        type : actionType.SET_FOOD_ITEMS,
+        foodItems: data,
+      })
     })
   }
 
