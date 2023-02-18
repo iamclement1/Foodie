@@ -12,6 +12,8 @@ import { categoryData } from '../utils/CategoryData';
 import Loader from './Loader';
 import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { saveItem } from '../utils/FirebaseFunctions';
+import { useStateValue } from '../context/StateProvider';
+import { actionType } from '../context/reducer';
 
 const CreateContainer = () => {
 
@@ -26,7 +28,7 @@ const CreateContainer = () => {
     const [alertStatus, setAlertStatus] = useState("danger");
     const [msg, setMsg] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
-    // const [{ foodItems }, dispatch] = useStateValue();
+    const [{ foodItems }, dispatch] = useStateValue();
 
     // callback function
     const uploadImage = (e) => {
@@ -98,13 +100,13 @@ const CreateContainer = () => {
                 }, 4000);
             } else {
                 const data = {
-                    id : `${Date.now()}`,
+                    id: `${Date.now()}`,
                     title: title,
-                    image : imageAsset,
+                    image: imageAsset,
                     category: category,
-                    calories : calories,
-                    qty : 1,
-                    price : price,
+                    calories: calories,
+                    qty: 1,
+                    price: price,
                 }
                 saveItem(data);
                 setIsLoading(false);
@@ -126,6 +128,9 @@ const CreateContainer = () => {
                 setIsLoading(false);
             }, 4000);
         }
+
+        //display update version of the food item once saved successfully.
+        fetchData();
     };
 
     //clear Data function
@@ -136,6 +141,19 @@ const CreateContainer = () => {
         setPrice("");
         setCategory("Select Category");
 
+    }
+
+
+
+    //fetch data state
+    const fetchData = async () => {
+        await getAllItems()
+            .then(data => {
+                dispatch({
+                    type: actionType.SET_FOOD_ITEMS,
+                    foodItems: data,
+                })
+            })
     }
 
     return (
