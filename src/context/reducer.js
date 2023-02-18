@@ -1,6 +1,7 @@
 //I don't need to pass the state information from one component to another
 export const actionType = {
     SET_USER: ' SET_USER',
+    SET_FOOD_ITEMS: ' SET_FOOD_ITEMS',
 }
 //data layer
 const reducer = (state, action) => {
@@ -12,6 +13,13 @@ const reducer = (state, action) => {
             return {
                 ...state, //spreader operator
                 user: action.user //update user action
+            };
+
+        // fOOD ITEM STATE
+        case actionType.SET_FOOD_ITEMS:
+            return {
+                ...state, //spreader operator
+                foodItems: action.foodItems //update foodItems action
             };
         default: return state;
     }
