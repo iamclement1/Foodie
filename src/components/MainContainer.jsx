@@ -4,6 +4,7 @@ import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 import RowContainer from "./RowContainer";
 import { useStateValue } from "../context/StateProvider";
 import { useEffect, useRef, useState } from "react";
+import MenuContainer from "./MenuContainer";
 
 
 const MainContainer = () => {
@@ -24,7 +25,7 @@ const MainContainer = () => {
                         <motion.div
                             whileTap={{ scale: 0.75 }}
                             className="w-8 h-8 rounded-lg bg-orange-300 hover:bg-orange-500 cursor-pointer flex
-                        items-center justify-center transition-all duration-100 ease-in-out hover:shadow-lg"
+                        items-center justify-center hover:shadow-lg"
                         onClick={() => setBtnScroll(-200)}>
                             <MdChevronLeft className="text-lg text-white" />
                         </motion.div>
@@ -45,6 +46,9 @@ const MainContainer = () => {
                 )}
                 btnScroll = { btnScroll }/>
             </section>
+
+            {/* menu container */}
+            <MenuContainer />
         </div>
     )
 }
