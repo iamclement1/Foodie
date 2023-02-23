@@ -5,14 +5,15 @@ import RowContainer from "./RowContainer";
 import { useStateValue } from "../context/StateProvider";
 import { useEffect, useRef, useState } from "react";
 import MenuContainer from "./MenuContainer";
+import CartContainer from "./CartContainer";
 
 
 const MainContainer = () => {
 
-    const [ {foodItems}, dispatch ] = useStateValue();
+    const [ {foodItems, cartShow}, dispatch ] = useStateValue();
     const [ btnScroll, setBtnScroll ] = useState(0);  
 
-    useEffect(() => {}, [ setBtnScroll ]);
+    useEffect(() => {}, [ setBtnScroll, cartShow ]);
     return (
         <div className='w-full h-auto flex flex-col items-center justify-center'>
             <HomeContainer />
@@ -49,6 +50,13 @@ const MainContainer = () => {
 
             {/* menu container */}
             <MenuContainer />
+
+            {/* cart container */}
+            {
+                cartShow && (
+                    <CartContainer />
+                )
+            }
         </div>
     )
 }
