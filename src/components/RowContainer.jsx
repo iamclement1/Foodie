@@ -1,6 +1,8 @@
 import { MdShoppingBasket } from "react-icons/md"
 import { motion } from 'framer-motion'
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useStateValue } from "../context/StateProvider";
+import { actionType } from "../context/reducer";
 
 
 const RowContainer = ({ flag, data, btnScroll }) => {
@@ -8,9 +10,27 @@ const RowContainer = ({ flag, data, btnScroll }) => {
 
     const rowContainer = useRef();
 
+    const [items, setItems] = useState([]);
+    const [{ cartItems }, dispatch] = useStateValue();
+
+    const addToCart = () => {
+        // console.log(item);
+        dispatch({
+            type: actionType.SET_CART_ITEMS,
+            cartItems: items,
+        });
+
+        //set item to localstorage once item is clicked or added to cart.
+        localStorage.setItem("cartItems", JSON.stringify(items));
+    };
+    useEffect(() => {
+        addToCart();
+    }, [items])
+
     useEffect(() => {
         rowContainer.current.scrollLeft += btnScroll;
     }, [btnScroll]);
+
     return (
         <div
             ref={rowContainer}
@@ -21,7 +41,7 @@ const RowContainer = ({ flag, data, btnScroll }) => {
                     data.map((item) => (
                         <>
                             <div
-                                key={item.id}
+                                key={item?.id}
                                 className="w-275 min-w-[250px] md:min-w-[235px] h-[235px] bg-cardOverlay rounded-lg
                                 p-2 my-12 shadow-md backdrop-blur-lg hover:drop-shadow-lg mx-2 flex flex-col 
                                 items-center justify-between ">
@@ -36,7 +56,8 @@ const RowContainer = ({ flag, data, btnScroll }) => {
                                     <motion.div
                                         whileTap={{ scale: 0.75 }}
                                         className="w-6 h-6 rounded-full bg-red-600 flex items-center justify-center
-                    cursor-pointer hover:shadow-md">
+                    cursor-pointer hover:shadow-md"
+                                        onClick={() => setItems([...cartItems, item])} >
                                         <MdShoppingBasket className="text-white" />
                                     </motion.div>
                                 </div>
@@ -53,7 +74,7 @@ const RowContainer = ({ flag, data, btnScroll }) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </div >
                         </>
                     ))
                 ) : (
@@ -69,7 +90,7 @@ const RowContainer = ({ flag, data, btnScroll }) => {
                     </>
                 )
             }
-        </div>
+        </div >
     )
 }
 
