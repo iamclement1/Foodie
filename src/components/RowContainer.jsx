@@ -15,21 +15,24 @@ const RowContainer = ({ flag, data, btnScroll }) => {
         <div
             ref={rowContainer}
             className={` w-full flex items-center my-12 scroll-smooth bg-rowBg
-        ${flag ? 'overflow-x-scroll scrollbar-none' : 'overflow-x-hidden flex-wrap'}`}>
+        ${flag ? 'overflow-x-scroll scrollbar-none' : 'overflow-x-hidden flex-wrap justify-center'}`}>
             {
                 data && data.length > 0 ? (
                     data.map((item) => (
                         <>
                             <div
                                 key={item?.id}
-                                className="w-275 min-w-[250px] md:min-w-[235px] h-[275px] bg-cardOverlay rounded-lg
+                                className="w-275 min-w-[250px] md:min-w-[235px] h-[235px] bg-cardOverlay rounded-lg
                                 p-2 my-12 shadow-md backdrop-blur-lg hover:drop-shadow-lg mx-2 flex flex-col 
                                 items-center justify-between ">
                                 <div className="w-full flex items-center justify-between relative">
-                                    <motion.img
-                                        whileHover={{ scale: 1.2 }}
-                                        src={item?.image} alt="Food_image"
-                                        className="w-40 drop-shadow-xl" />
+                                    <motion.div
+                                    whileHover={{ scale: 1.2 }}
+                                    className="w-40 h-40 -mt-8 drop-shadow-xl">
+                                        <img
+                                            src={item?.image} alt="Food_image"
+                                            className="w-full h-full object-contain" />
+                                    </motion.div>
                                     <motion.div
                                         whileTap={{ scale: 0.75 }}
                                         className="w-6 h-6 rounded-full bg-red-600 flex items-center justify-center
