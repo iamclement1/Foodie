@@ -3,10 +3,11 @@ export const actionType = {
     SET_USER: ' SET_USER',
     SET_FOOD_ITEMS: ' SET_FOOD_ITEMS',
     SET_CART_SHOW: ' SET_CART_SHOW',
+    SET_CART_ITEMS: ' SET_CART_ITEMS',
 }
 //data layer
 const reducer = (state, action) => {
-    console.log(action);
+    // console.log(action);
 
     //when dispatching type would be changed
     switch (action.type) {
@@ -23,12 +24,18 @@ const reducer = (state, action) => {
                 foodItems: action.foodItems //update foodItems action
             };
 
-            // CART SHOW STATE
+        // CART SHOW STATE
         case actionType.SET_CART_SHOW:
             return {
                 ...state, //spreader operator
                 cartShow: action.cartShow //update cartShow action
             };
+
+        case actionType.SET_CART_ITEMS:
+            return {
+                ...state, //spreader operator
+                cartItems: action.cartItems //update cartItems action  
+            }
         default: return state;
     }
 }
