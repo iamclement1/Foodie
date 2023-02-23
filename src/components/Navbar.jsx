@@ -16,7 +16,7 @@ const Navbar = () => {
     const provider = new GoogleAuthProvider();
 
     //dispatch providerData by using the useStateValue custome hook I created in the context folder
-    const [{ user, cartShow }, dispatch] = useStateValue();
+    const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
 
     const [isMenu, setIsMenu] = useState(false);
 
@@ -47,7 +47,7 @@ const Navbar = () => {
     const showCart = () => {
         dispatch({
             type: actionType.SET_CART_SHOW,
-            cartShow : !cartShow,
+            cartShow: !cartShow,
         });
 
     }
@@ -92,14 +92,18 @@ const Navbar = () => {
                     </motion.ul>
 
                     {/* cart icon */}
-                    <motion.div 
-                    whileTap={{ scale : 0.75 }}
-                    className="relative flex items-start justify-center"
-                    onClick={showCart}>
+                    <motion.div
+                        whileTap={{ scale: 0.75 }}
+                        className="relative flex items-start justify-center"
+                        onClick={showCart}>
                         <IoMdCart className='text-textColor text-2xl cursor-pointer' />
-                        <div className='absolute -top-2 -right-2  w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center'>
-                            <p className="text-xs text-white font-semibold"> 2 </p>
-                        </div>
+                        {
+                            cartItems && cartItems.length > 0 && (
+                                <div className='absolute -top-2 -right-2  w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center'>
+                                    <p className="text-xs text-white font-semibold"> {cartItems.length} </p>
+                                </div>
+                            )
+                        }
                     </motion.div>
 
                     {/* avatarImage + framer motion to tapping */}
@@ -153,14 +157,18 @@ const Navbar = () => {
             {/* mobile phone  */}
             <div className="flex items-center justify-between md:hidden w-full h-full p-5" >
                 {/* cart icon */}
-                <motion.div 
-                whileTap={{ scale : 0.75 }}
-                className="relative flex items-start justify-center"
-                onClick={showCart}>
+                <motion.div
+                    whileTap={{ scale: 0.75 }}
+                    className="relative flex items-start justify-center"
+                    onClick={showCart}>
                     <IoMdCart className='text-textColor text-2xl cursor-pointer' />
-                    <div className='absolute -top-2 -right-2  w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center'>
-                        <p className="text-xs text-white font-semibold"> 2 </p>
-                    </div>
+                    {
+                        cartItems && cartItems.length > 0 && (
+                            <div className='absolute -top-2 -right-2  w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center'>
+                                <p className="text-xs text-white font-semibold"> {cartItems.length} </p>
+                            </div>
+                        )
+                    }
                 </motion.div>
                 {/* link image */}
                 <Link to={'/'} className="flex items-center gap-2">
