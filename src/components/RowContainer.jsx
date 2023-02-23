@@ -21,14 +21,14 @@ const RowContainer = ({ flag, data, btnScroll }) => {
                     data.map((item) => (
                         <>
                             <div
-                                key={item?.id}
+                                key={item.id}
                                 className="w-275 min-w-[250px] md:min-w-[235px] h-[235px] bg-cardOverlay rounded-lg
                                 p-2 my-12 shadow-md backdrop-blur-lg hover:drop-shadow-lg mx-2 flex flex-col 
                                 items-center justify-between ">
                                 <div className="w-full flex items-center justify-between relative">
                                     <motion.div
-                                    whileHover={{ scale: 1.2 }}
-                                    className="w-40 h-40 -mt-8 drop-shadow-xl">
+                                        whileHover={{ scale: 1.2 }}
+                                        className="w-40 h-40 -mt-8 drop-shadow-xl">
                                         <img
                                             src={item?.image} alt="Food_image"
                                             className="w-full h-full object-contain" />
@@ -53,7 +53,8 @@ const RowContainer = ({ flag, data, btnScroll }) => {
                                         </p>
                                     </div>
                                 </div>
-                            </div></>
+                            </div>
+                        </>
                     ))
                 ) : (
                     // if data is not available to this
