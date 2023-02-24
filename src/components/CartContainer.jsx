@@ -5,11 +5,14 @@ import { useStateValue } from '../context/StateProvider';
 import { actionType } from '../context/reducer';
 import EmptyCart from '../assets/img/emptyCart.svg';
 import CartItems from './CartItems';
+import { useEffect, useState } from 'react';
 
 const CartContainer = () => {
 
     //dispatch providerData by using the useStateValue custome hook I created in the context folder
     const [{ user, cartShow, cartItems }, dispatch] = useStateValue();
+    const [flag, setFlag] = useState(1);
+    const [total, setTotal] = useState(0);
 
     const hideCart = () => {
         dispatch({
@@ -17,6 +20,14 @@ const CartContainer = () => {
             cartShow: !cartShow,
         });
     };
+
+    useEffect(() => {
+        let totalPrice = cartItems.reduce(function (accumulator, item) {
+            return accumulator + item.qty * item.price;
+        }, 0);
+        setTotal(totalPrice);
+        console.log(total);
+    }, [total, flag])
 
     const clearCart = () => {
         dispatch({
@@ -63,7 +74,9 @@ const CartContainer = () => {
                                 {
                                     cartItems && cartItems.map((item) => (
                                         <CartItems key={item?.id}
-                                        item={item}/>
+                                        item={item}
+                                        setFlag={setFlag} 
+                                        flag={flag} />
                                     ))
                                 }
                             </div>
@@ -77,7 +90,7 @@ const CartContainer = () => {
                                     </p>
 
                                     <p className='text-gray-400 text-lg'>
-                                        $8.5
+                                        $ { total }
                                     </p>
                                 </div>
 
@@ -98,7 +111,7 @@ const CartContainer = () => {
                                 {/* total */}
                                 <div className='w-full flex items-center justify-between'>
                                     <p className='text-gray-200 text-xl font-semibold'>Total</p>
-                                    <p className='text-gray-200 text-xl font-semibold'>$ 11.5 </p>
+                                    <p className='text-gray-200 text-xl font-semibold'>$ { total + 2.5} </p>
                                 </div>
 
                                 {
