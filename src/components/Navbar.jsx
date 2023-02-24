@@ -69,26 +69,34 @@ const Navbar = () => {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 200 }}
                         className='flex items-center gap-6'>
-                        <li className="text-lg text-textColor hover:text-headingColor duration-100 
-                    r-pointer"
-                            onClick={() => setIsMenu(false)}>
-                            Home
-                        </li>
-                        <li className="text-lg text-textColor hover:text-headingColor duration-100 
-                    r-pointer"
-                            onClick={() => setIsMenu(false)}>
-                            Menu
-                        </li>
-                        <li className="text-lg text-textColor hover:text-headingColor duration-100 
-                    r-pointer"
-                            onClick={() => setIsMenu(false)}>
-                            About Us
-                        </li>
-                        <li className="text-lg text-textColor hover:text-headingColor duration-100 
-                    r-pointer"
-                            onClick={() => setIsMenu(false)}>
-                            Service
-                        </li>
+                        <Link to={"/"}>
+                            <li className="text-lg text-textColor hover:text-headingColor duration-100 
+                            cursor-pointer"
+                                onClick={() => setIsMenu(false)}>
+                                Home
+                            </li>
+                        </Link>
+                        <Link to={"/menu"}>
+                            <li className="text-lg text-textColor hover:text-headingColor duration-100 
+                            cursor-pointer"
+                                onClick={() => setIsMenu(false)}>
+                                Menu
+                            </li>
+                        </Link>
+                        <Link to={"/about"}>
+                            <li className="text-lg text-textColor hover:text-headingColor 
+                            duration-100 cursor-pointer"
+                                onClick={() => setIsMenu(false)}>
+                                About Us
+                            </li>
+                        </Link>
+                        <Link to={"service"}>
+                            <li className="text-lg text-textColor hover:text-headingColor duration-100 
+                            cursor-pointer"
+                                onClick={() => setIsMenu(false)}>
+                                Service
+                            </li>
+                        </Link>
                     </motion.ul>
 
                     {/* cart icon */}
