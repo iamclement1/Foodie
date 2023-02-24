@@ -1,7 +1,56 @@
 import { BiMinus, BiPlus } from 'react-icons/bi';
 import { motion } from 'framer-motion';
+import { useEffect, useState } from 'react';
+import { useStateValue } from '../context/StateProvider';
+import { actionType } from '../context/reducer';
 
-const CartItems = ({item}) => {
+const CartItems = ({ item, flag, setFlag }) => {
+
+    const [qty, setQty] = useState(item.qty);
+    const [items, setItems] = useState([]);
+    const [{ cartItems }, dispatch] = useStateValue();
+
+    //update cart to ui with dispatch
+
+    const cartDispatch = () => {
+        localStorage.setItem("cartItems", JSON.stringify(items));
+        dispatch({
+            type: actionType.SET_CART_ITEMS,
+            cartItems: items,
+        })
+    }
+
+    const updateQty = (action, id) => {
+        if (action === "add") {
+            setQty(qty + 1);
+            cartItems.map((item) => {
+                if (item.id === id) {
+                    item.qty += 1;
+                    setFlag(flag + 1);
+                }
+            });
+            cartDispatch();
+        } else {
+            if (qty == 1) {
+                setItems(cartItems.filter((item) => item.id !== id));
+                setFlag(flag + 1);
+                cartDispatch();
+            } else {
+                setQty(qty - 1);
+                cartItems.map((item) => {
+                    if (item.id === id) {
+                        item.qty -= 1;
+                        setFlag(flag + 1);
+                    }
+                });
+                cartDispatch();
+            }
+        }
+    }
+
+    useEffect(() => {
+        setItems(cartItems);
+    }, [qty, items])
     return (
         <div>
             <div
@@ -17,7 +66,7 @@ const CartItems = ({item}) => {
                         }
                     </p>
                     <p className='text-sm block text-gray-300 font-semibold'>
-                        $ <span> {item?.price} </span>
+                        $ <span> {parseFloat(item?.price) * qty} </span>
                     </p>
                 </div>
 
@@ -25,17 +74,19 @@ const CartItems = ({item}) => {
 
                 <div className='group flex items-center gap-2 ml-auto cursor-pointer'>
                     <motion.div
-                        whileTap={{ scale: 0.75 }}>
+                        whileTap={{ scale: 0.75 }}
+                        onClick={() => updateQty("remove", item?.id)}>
                         <BiMinus className="text-gray-50" />
                     </motion.div>
 
                     {/* quantity */}
                     <p className='w-5 p-5 rounded-sm bg-cartBg text-gray-50 flex items-center justify-center'>
-                        {item?.qty}
+                        {qty}
                     </p>
 
                     <motion.div
-                        whileTap={{ scale: 0.75 }}>
+                        whileTap={{ scale: 0.75 }}
+                        onClick={() => updateQty("add", item?.id)}>
                         <BiPlus className="text-gray-50" />
                     </motion.div>
                 </div>
