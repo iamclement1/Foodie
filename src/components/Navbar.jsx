@@ -1,4 +1,4 @@
-import Logo from '../assets/img/logo.png';
+import Logo from '../assets/img/foodie.png';
 import Avatar from '../assets/img/avatar.png';
 import { IoMdCart } from 'react-icons/io';
 import { MdAdd, MdLogout } from 'react-icons/md';
