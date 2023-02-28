@@ -6,6 +6,7 @@ import { useStateValue } from './context/StateProvider'
 import { getAllItems } from './utils/FirebaseFunctions'
 import { useEffect } from 'react'
 import { actionType } from './context/reducer'
+import { Footer } from './components/index'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
           <main className='mt-14 md:mt-20 px-4 md:px-16 py-8 w-full'>
             <Routing />
           </main>
+          <Footer />
         </div>
       </div>
     </AnimatePresence>
