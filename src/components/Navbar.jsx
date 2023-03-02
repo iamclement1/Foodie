@@ -9,6 +9,9 @@ import { app } from '../firebase.config';
 import { useStateValue } from '../context/StateProvider';
 import { actionType } from "../context/reducer";
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Navbar = () => {
 
@@ -28,6 +31,7 @@ const Navbar = () => {
                 type: actionType.SET_USER,
                 user: providerData[0]
             });
+            toast("Login successful");
             localStorage.setItem('user', JSON.stringify(providerData[0]));
         } else {
             setIsMenu(!isMenu)
@@ -42,6 +46,7 @@ const Navbar = () => {
             type: actionType.SET_USER,
             user: null,
         })
+        toast(' Logout Successful');
     }
 
     const showCart = () => {
@@ -55,7 +60,7 @@ const Navbar = () => {
         <header className='fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary' >
             {/* desktop & tablet */}
             <div className='hidden md:flex w-full h-full items-center justify-between' >
-                <Link to={'/'} className="flex items-center gap-2">
+                <Link to={'/MainContainer'} className="flex items-center gap-2">
                     <img src={Logo} alt="Logo" className='w-10 object-cover' />
                     <p className='text-headingColor text-xl font-bold'>
                         Foodie
@@ -97,6 +102,15 @@ const Navbar = () => {
                                 Service
                             </li>
                         </Link>
+
+                        {/* <Link to={"login"}>
+                            <li className="text-lg text-textColor hover:text-headingColor duration-100 
+                            cursor-pointer"
+                                onClick={() => setIsMenu(false)}>
+                                Login
+                            </li>
+                        </Link> */}
+
                     </motion.ul>
 
                     {/* cart icon */}
@@ -243,6 +257,8 @@ const Navbar = () => {
                     }
                 </div>
             </div>
+
+            <ToastContainer />
         </header>
     )
 }
