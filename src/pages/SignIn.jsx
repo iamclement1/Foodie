@@ -58,8 +58,8 @@ const SignIn = () => {
         <>
             <div className="w-full h-screen flex items-center justify-center">
                 <div className='w-[90%] md:w-[45%] rounded-lg p-4
-            flex flex-col items-center justify-center gap-4
-            shadow-md bg-white'>
+            flex flex-col items-center justify-center 
+            shadow-md bg-white '>
                     <img src={Logo} alt="icon" className='h-20 w-20' />
                     <div className="w-full max-w-sm">
                         <form action="">
