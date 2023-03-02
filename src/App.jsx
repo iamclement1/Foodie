@@ -28,7 +28,7 @@ function App() {
   }, [])
 
   return (
-    <AnimatePresence exitBeforeEnter>
+    <AnimatePresence mode='wait'>
       <div className="App">
         <div className="w-screen h-auto flex flex-col bg-primary">
           <Navbar />
